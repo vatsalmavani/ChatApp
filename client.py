@@ -6,18 +6,15 @@ PORT = 9999
 
 clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 clientsocket.connect((HOST, PORT))
-server_running = True
 
 
 def send_message():
-    global server_running
-    while server_running:
+    while True:
         message = input('')
         try:
             if message == '/exit':
                 clientsocket.send(message.encode('utf-8'))
                 clientsocket.close()
-                server_running = False # since client is exiting, we must end the listen_for_input thread
                 break
             else:
                 clientsocket.send(message.encode('utf-8'))
@@ -26,13 +23,11 @@ def send_message():
             break
 
 def receive_message():
-    global server_running
-    while server_running:
+    while True:
         try:
             message = clientsocket.recv(4096).decode('utf-8')
             if message == 'SERVER_SHUTDOWN':
                 clientsocket.close()
-                server_running = False
                 break
             else:
                 print(message)
