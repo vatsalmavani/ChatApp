@@ -12,6 +12,11 @@ This project implements terminal based, real time chatting application. It follo
 * User can exit from the chat using `/exit` command
 * Server can be stopped running using `exit()` command
 
+## Limitations
+
+* The server can accept maximum of 10 connections.
+* Every message must be less than 4096 bytes in size.
+
 ## Reference
 
 * https://docs.python.org/3/howto/sockets.html
